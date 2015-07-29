@@ -6,7 +6,9 @@
         "phpspec/phpspec": "^2.2"
     },
     "autoload": {
+      "psr-4": {
         "PrometheusApi\\Utilities\\": "src/"
+      }
     },
     "license": "MIT",
     "authors": [
