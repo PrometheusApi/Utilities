@@ -1,0 +1,19 @@
+{
+    "name": "prometheusapi/utilities",
+    "description": "Platform agnostic API utilities",
+    "require": {},
+    "require-dev": {
+        "phpspec/phpspec": "^2.2"
+    },
+    "autoload": {
+        "PrometheusApi\\Utilities\\": "src/"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andy Wendt",
+            "email": "andy@awendt.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
