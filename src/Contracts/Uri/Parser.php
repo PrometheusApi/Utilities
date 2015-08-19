@@ -25,6 +25,13 @@ interface Parser
     public function getQuery($uri);
 
     /**
+     * @param string $uri
+     *
+     * @return string
+     */
+    public function getResource($uri);
+
+    /**
      * Returns the entities that have ids associated with them in the URI
      *
      * /sites/1/products would return ['sites']

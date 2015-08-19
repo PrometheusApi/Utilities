@@ -86,6 +86,18 @@ class ParserSpec extends ObjectBehavior
         $this->getQuery($uri)->shouldReturn('include=primary_image');
     }
 
+    function it_returns_the_resource_from_the_uri()
+    {
+        $uri = '/products?include=primary_image';
+        $this->getResource($uri)->shouldReturn('/products');
+
+        $uri = '/products/1/images?include=primary_image';
+        $this->getResource($uri)->shouldReturn('/products/1/images');
+
+        $uri = '/products';
+        $this->getResource($uri)->shouldReturn('/products');
+    }
+
     function it_will_return_all_instances_of_an_id_placeholder()
     {
         $uri = '/sites/{id}/products/{id}/images/{id}';

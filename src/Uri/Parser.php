@@ -41,6 +41,16 @@ class Parser implements \PrometheusApi\Utilities\Contracts\Uri\Parser
     }
 
     /**
+     * @param string $uri
+     *
+     * @return string
+     */
+    public function getResource($uri)
+    {
+        return explode('?', $uri)[0];
+    }
+
+    /**
      * @inheritdoc
      */
     public function idEntities($uri, $idPlaceholder = null)
