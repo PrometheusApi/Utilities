@@ -1,8 +1,6 @@
 <?php
 namespace PrometheusApi\Utilities\Uri;
 
-use App\Contracts;
-
 class Parser implements \PrometheusApi\Utilities\Contracts\Uri\Parser
 {
 
