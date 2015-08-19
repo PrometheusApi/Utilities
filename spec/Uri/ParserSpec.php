@@ -68,6 +68,12 @@ class ParserSpec extends ObjectBehavior
         $this->idEntities($uri, $idPlaceholder)->shouldReturn(['sites', 'products', 'images']);
     }
 
+    function it_returns_null_if_no_query()
+    {
+        $uri = '/products';
+        $this->getQuery($uri)->shouldReturn(null);
+    }
+
     function it_returns_the_query()
     {
         $uri = '/products/?include=primary_image';
