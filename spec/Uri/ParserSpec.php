@@ -21,7 +21,7 @@ class ParserSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('App\Uri\Parser');
+        $this->shouldHaveType('PrometheusApi\Utilities\Uri\Parser');
     }
 
     function it_parses_an_array_of_ids_from_the_end_entity()
@@ -71,7 +71,13 @@ class ParserSpec extends ObjectBehavior
     function it_returns_the_query()
     {
         $uri = '/products/?include=primary_image';
-        $this->getQuery($uri)->shouldReturn('?include=primary_image');
+        $this->getQuery($uri)->shouldReturn('include=primary_image');
+    }
+
+    function it_returns_the_query_even_if_there_is_no_trailing_slash()
+    {
+        $uri = '/products?include=primary_image';
+        $this->getQuery($uri)->shouldReturn('include=primary_image');
     }
 
     function it_will_return_all_instances_of_an_id_placeholder()

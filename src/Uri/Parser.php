@@ -31,13 +31,7 @@ class Parser implements \PrometheusApi\Utilities\Contracts\Uri\Parser
      */
     public function getQuery($uri)
     {
-        $query = array_filter($this->explodeUri($uri), function ($value) {
-            if (strpos($value, '?') !== false) {
-                return $value;
-            }
-        });
-
-        return array_shift($query);
+        return explode('?', $uri)[1];
     }
 
     /**
