@@ -74,6 +74,20 @@ class ParserSpec extends ObjectBehavior
         $this->getQuery($uri)->shouldReturn(null);
     }
 
+    function it_returns_the_proper_entities_if_you_request_multiple_placeholders_for_the_last_entity()
+    {
+        $uri = '/sites/{random_id},{random_id}';
+        $placeholder = '{random_id}';
+        $this->entities($uri, $placeholder)->shouldReturn(['sites']);
+    }
+
+    function it_returns_the_proper_identities_if_you_request_multiple_placeholders_for_the_last_entity()
+    {
+        $uri = '/sites/{random_id},{random_id}';
+        $placeholder = '{random_id}';
+        $this->idEntities($uri, $placeholder)->shouldReturn(['sites']);
+    }
+
     function it_returns_the_query()
     {
         $uri = '/products/?include=primary_image';
@@ -96,6 +110,14 @@ class ParserSpec extends ObjectBehavior
 
         $uri = '/products';
         $this->getResource($uri)->shouldReturn('/products');
+    }
+
+    function it_will_return_a_count_array_of_the_ids_that_are_needed()
+    {
+        $uri = '/sites/{random_id}/products/{random_id},{random_id}';
+        $placeholder = '{random_id}';
+
+        $this->idsNeededCount($uri, $placeholder)->shouldReturn([1, 2]);
     }
 
     function it_will_return_all_instances_of_an_id_placeholder()

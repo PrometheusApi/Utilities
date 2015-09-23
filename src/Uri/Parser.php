@@ -17,7 +17,7 @@ class Parser implements \PrometheusApi\Utilities\Contracts\Uri\Parser
             };
         } else {
             $callback = function ($value) use ($idPlaceholder) {
-                if ($value !== $idPlaceholder && $this->notAQuery($value)) {
+                if ($value !== $idPlaceholder && false === $this->itIsAnArrayOfPlaceholders($value, $idPlaceholder) && $this->notAQuery($value)) {
                     return $value;
                 }
             };
@@ -69,7 +69,10 @@ class Parser implements \PrometheusApi\Utilities\Contracts\Uri\Parser
         if ($idPlaceholder) {
 
             $callback = function ($value) use ($idPlaceholder) {
-                if ($value === $idPlaceholder) {
+                if ($this->placeholderItIs($value, $idPlaceholder)) {
+                    return $value;
+                }
+                if ($this->itIsAnArrayOfPlaceholders($value, $idPlaceholder)) {
                     return $value;
                 }
 
@@ -92,6 +95,22 @@ class Parser implements \PrometheusApi\Utilities\Contracts\Uri\Parser
         }
 
         return array_values(array_filter(array_map($callback, $this->explodeUri($uri))));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function idsNeededCount($uri, $placeholder)
+    {
+        $ids = $this->ids($uri, $placeholder);
+
+        $idsNeededCount = [];
+
+        foreach ($ids as $idString) {
+            $idsNeededCount[] = substr_count($idString, $placeholder);
+        }
+
+        return $idsNeededCount;
     }
 
     /**
@@ -139,5 +158,25 @@ class Parser implements \PrometheusApi\Utilities\Contracts\Uri\Parser
     protected function notAQuery($string)
     {
         return strpos($string, '?') === false;
+    }
+
+    protected function placeholderItIs($value, $placeholder)
+    {
+        return $value === $placeholder;
+    }
+
+    private function itIsAnArrayOfPlaceholders($value, $idPlaceholder)
+    {
+        $array = explode(',', $value);
+
+        $count = count($array);
+
+        $filteredArray = array_filter($array, function ($value) use ($idPlaceholder) {
+            if ($value === $idPlaceholder) {
+                return $value;
+            }
+        });
+
+        return count($filteredArray) === $count;
     }
 }

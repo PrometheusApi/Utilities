@@ -57,4 +57,14 @@ interface Parser
      * @return array
      */
     public function ids($uri, $idPlaceholder = null);
+
+    /**
+     * returns a count of the ids needed based on the placeholder
+     *
+     * @param string $uri
+     * @param string $placeholder
+     *
+     * @return array
+     */
+    public function idsNeededCount($uri, $placeholder);
 }
